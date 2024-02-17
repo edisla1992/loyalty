@@ -36,7 +36,7 @@ module.exports = class Loyalty {
                         
                     var content = dinamicClass[dinamicFunc](this.param);
                     
-                    res.end(content);
+                    // res.end(content);
 
                 }
 
