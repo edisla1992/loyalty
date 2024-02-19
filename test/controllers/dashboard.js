@@ -6,4 +6,10 @@ module.exports = class Dashboard {
 
     }
 
+    login() {
+
+        return "<h1>Login</h1>";
+
+    }
+
 }

@@ -1,19 +1,18 @@
 const Loyalty = require('../loyalty');
 
-const loyalty = new Loyalty({
-    port: 8080,
-    hostname: 'localhost'
-});
+const loyalty = new Loyalty();
 
 loyalty.conf({
-    controllers   : './controllers',
-    modules       : './modules',
-    views         : './views',
-    libraries     : './'
+    port            : 8080,
+    hostname        : 'localhost',
+    controllers     : './controllers',
+    models          : './models',
+    views           : './views'
 });
 
 loyalty.routes({
-    '/': 'dashboard/index'
+    '/': 'dashboard/index',
+    '/login': 'dashboard/login'
 });
 
 loyalty.run();

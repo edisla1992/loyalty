@@ -1,6 +1,7 @@
-const http      = require('http');
-var url         = require('url');
-var path        = require('path');
+const http          = require('http');
+const url           = require('url');
+const path          = require('path');
+const fs            = require('fs');
 
 module.exports = class Loyalty {
 
@@ -13,8 +14,6 @@ module.exports = class Loyalty {
 
     constructor(obj) {
 
-        this.port = obj.port;
-        this.hostname = obj.hostname;
 
     }
 
@@ -22,30 +21,24 @@ module.exports = class Loyalty {
 
         var server = http.createServer();
 
-        server.on('request', (req, res) => {     
+        server.on('request', (req, res) => {
 
-            var url = this.routeObj[req.url];
+            var data = {
+                route: this.routeObj[req.url],
+                res: res
+            };
 
-            if(typeof url !== 'undefined') {
+            this.findControllers(data, (result) => {
 
-                if(url['type'] === 'module') {
+                res.writeHead(200, {
+                    'Content-Length': Buffer.byteLength(result),
+                    'Content-Type': 'text/html'
+                });
 
-                    var dinamicController   = require(url['controller']),
-                        dinamicFunc         = url['function'],
-                        dinamicClass        = new dinamicController();
-                        
-                    var content = dinamicClass[dinamicFunc](this.param);
-                    
-                    // res.end(content);
+                res.end(result);
 
-                }
-
-            } else {
-
-                res.writeHead(400);
-                res.end();
-
-            }
+            });
+            
 
         });
 
@@ -53,7 +46,68 @@ module.exports = class Loyalty {
 
     }
 
+    findControllers(data, callback) {
+
+        if(typeof data.route !== 'undefined') {
+
+            var route = data.route;
+
+            fs.lstat(route['controller'], (err, stats) => {
+
+                if(err) {
+
+                    var result = this.errors(1, route['controller']);
+
+                    callback(result);
+
+                } else {
+
+                    var dinamicController   = require(route['controller']),
+                        dinamicFunc         = route['function'],
+                        dinamicClass        = new dinamicController();
+
+                        if(typeof dinamicClass[dinamicFunc] === 'undefined') {
+
+                            var result = this.errors(2, route['function']);
+
+                            callback(result);
+
+                        } else {
+
+                            var content = dinamicClass[dinamicFunc](this.param);
+
+                            callback(content);
+                        }
+
+                }
+
+            });
+
+        }
+
+    }
+
+    errors(code, data) {
+
+        var result;
+
+        switch(code) {
+            case 1:
+                result = "<h2>Controller no found</h2><br>" + data;
+                break;
+            case 2:
+                result = "<h2>Function no found</h2><br>" + data;
+                break;
+        }
+
+        return result;
+
+    }
+
     conf(obj) {
+
+        this.port = obj.port;
+        this.hostname = obj.hostname;
 
         if(typeof obj !== 'undefined') {
 
