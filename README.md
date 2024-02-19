@@ -4,7 +4,7 @@ Loyalty es un framework de Node creado para la programacion MVC (Modelo, Vista, 
 ## Instalacion
 Para descargar el framework solo tienes que usar composer:
 
-`composer install edisla1992/loyalty`
+`composer require loyaltyjs/loyalty`
 
 ## Inicio
 
