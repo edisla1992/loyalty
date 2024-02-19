@@ -1,0 +1,17 @@
+{
+    "name": "loyaltyjs/loyalty",
+    "description": "Loyalty Framework",
+    "type": "proyect",
+    "autoload": {
+        "psr-4": {
+            "Loyaltyjs\\Loyalty\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "edisla1992",
+            "email": "edisla1992@gmail.com"
+        }
+    ],
+    "require": {}
+}
