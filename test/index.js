@@ -12,7 +12,8 @@ loyalty.conf({
 
 loyalty.routes({
     '/': 'dashboard/index',
-    '/login': 'dashboard/login'
+    '/login': 'dashboard/login',
+    '/user/': 'dashboard/user'
 });
 
 loyalty.run();
