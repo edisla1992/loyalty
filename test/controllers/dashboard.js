@@ -1,4 +1,6 @@
-module.exports = class Dashboard {
+const Controller = require('../../controller');
+
+module.exports = class Dashboard extends Controller {
 
     index() {
 
@@ -12,9 +14,9 @@ module.exports = class Dashboard {
 
     }
 
-    user(userId) {
+    user() {
 
-        return "<h1>Login</h1>";
+        return this.htmlview('dashboards');
 
     }
 

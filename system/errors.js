@@ -1,6 +1,5 @@
 module.exports = class Errors {
 
-
     output(code, data) {
 
         var result;
@@ -14,6 +13,9 @@ module.exports = class Errors {
                 break;
             case 3:
                 result = "<h2>Rute no found</h2><br>Please add this url to route config";
+                break;
+            case 4:
+                result = "<h2>View " + data.name + " no found</h2><br>" + data.file;
                 break;
         }
 

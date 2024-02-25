@@ -11,6 +11,7 @@ module.exports = class Loyalty {
     hostname;
     server;
     controllersPath;
+    viewsPath;
     routeObj = {};
     param = {};
 
@@ -30,7 +31,8 @@ module.exports = class Loyalty {
 
             var data = {
                 route: this.routeObj[e],
-                res: res
+                res: res,
+                paths: {controllers: this.controllersPath, views: this.viewsPath}
             };
 
             core.findControllers(data, (result) => {
@@ -60,6 +62,12 @@ module.exports = class Loyalty {
             if(typeof obj.controllers !== 'undefined') {
 
                 this.controllersPath = path.resolve(obj.controllers);
+
+            }
+
+            if(typeof obj.controllers !== 'undefined') {
+
+                this.viewsPath = path.resolve(obj.views);
 
             }
 

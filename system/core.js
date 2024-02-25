@@ -33,7 +33,12 @@ module.exports = class Core {
 
                     } else {
 
-                        var content = dinamicClass[dinamicFunc](this.param);
+                        var params = {
+                            paths: data.paths
+                        };
+
+                        dinamicClass.viewsPath = data.paths.views;
+                        var content = dinamicClass[dinamicFunc]();
 
                         callback(content);
                     }
