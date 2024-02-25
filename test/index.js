@@ -13,7 +13,7 @@ loyalty.conf({
 loyalty.routes({
     '/': 'dashboard/index',
     '/login': 'dashboard/login',
-    '/user/': 'dashboard/user'
+    '/user/get/$1/$2/$3': 'dashboard/user/$1/$2/$3'
 });
 
 loyalty.run();

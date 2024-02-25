@@ -28,7 +28,6 @@ module.exports = class Loyalty {
             //Removed last slash
             var e = (req.url.endsWith('/') && req.url != '/')? req.url.slice(0, -1) : req.url;
 
-            console.log(e);
             var data = {
                 route: this.routeObj[e],
                 res: res
@@ -72,41 +71,36 @@ module.exports = class Loyalty {
 
         for(var i in obj) {
 
-            //Removed last slash
-            var e = (i.endsWith('/') && i != '/')? i.slice(0, -1) : i;
-
-            var module = obj[i].split('/');
+            var e           = (i.endsWith('/') && i != '/')? i.slice(0, -1) : i, //Removed last slash
+                module      = obj[i].split('/'),
+                controller  = module[0] + '.js',
+                func        = module[1],
+                params      = [],
+                index       = e;
 
             for(var m in module) {
 
-                
+                var isParam = module[m].indexOf('$');
+
+                if(isParam == 0) {
+
+                    params.push(module[m]);
+
+                    index = index.replace("/" + module[m], "");
+
+                }
 
             }
 
-            var controller  = module[0] + '.js',
-            func = module[1];
-
-            this.routeObj[e] = {
+            this.routeObj[index] = {
                 controller  : path.join(this.controllersPath, controller),
                 function    : func,
-                type        : 'module'
+                type        : 'module',
+                params      : params
             }
 
         }
 
     }
-
-    get(url, callback) {
-
-        
-
-    }
-
-    url(urlPath, callback) {
-
-        
-
-    }
-
 
 }

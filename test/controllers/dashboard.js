@@ -12,4 +12,10 @@ module.exports = class Dashboard {
 
     }
 
+    user(userId) {
+
+        return "<h1>Login</h1>";
+
+    }
+
 }
