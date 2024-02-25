@@ -1,11 +1,11 @@
 {
-  "name": "loyaltyjs",
+  "name": "@edisla1992/loyaltyjs",
   "version": "1.0.0",
   "description": "Node Framework",
   "main": "/test/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "edisla1992",
   "license": "ISC"
 }
